@@ -5,6 +5,7 @@ package web
 
 import (
 	"github.com/maguerrido/go-rest/pkg/applications/repository"
+	"github.com/maguerrido/go-rest/pkg/applications/web/handlers/category"
 	"log"
 	"net/http"
 )
@@ -14,7 +15,8 @@ func New(repo *repository.App) *App {
 		mux:  http.NewServeMux(),
 		repo: repo,
 	}
-	
+
+	app.mux.Handle("/api/categories/", category.Handler(app.repo.CategoryServices))
 	return app
 }
 
